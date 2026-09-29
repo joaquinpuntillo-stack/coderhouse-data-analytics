@@ -1,3 +1,10 @@
+-- ============================================================
+-- M4 - Consultas de negocio sobre Ventas_Tech_DB
+-- Joaquin Puntillo - 29/09/2026
+-- ============================================================
+USE Ventas_Tech_DB;
+GO
+
 select month(fecha_venta) as mes,
        count(cantidad) total_pedidos,
        sum(precio_unitario * cantidad) as total_facturado,
