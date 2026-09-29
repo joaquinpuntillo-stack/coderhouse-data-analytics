@@ -42,5 +42,5 @@ FROM   ventas_por_mes
 ORDER BY mes;
 
 ---Solo hay ventas de Marzo---
----El id_proudcto 1 fue el mas vendido---
+---El producto 2 fue el que mas unidades vendio---
 ---todos los clientes fueron igual de recurrentes en el periodo de analisis---
