@@ -1,7 +1,11 @@
-	
-	
-	
-	if db_id('Ventas_Tech_DB') is null 
+-- ============================================================
+-- M3 - Creacion de la base Ventas_Tech_DB (DDL + DML)
+-- Joaquin Puntillo - actualizado 02/10/2026
+-- Ampliado para el M5: columna region en clientes, un cliente
+-- sin compras y un producto sin ventas.
+-- ============================================================
+
+if db_id('Ventas_Tech_DB') is null
 	create database Ventas_Tech_DB;
 	go
 	use Ventas_Tech_DB
@@ -12,7 +16,7 @@ DROP TABLE IF EXISTS ventas;
 DROP TABLE IF EXISTS productos;
 DROP TABLE IF EXISTS clientes;
 DROP TABLE IF EXISTS categorias;
-
+GO
 
 ---------- Sección 2 — CREATE TABLES ----------
 	create table categorias (
@@ -27,6 +31,7 @@ DROP TABLE IF EXISTS categorias;
 	nombre varchar(100) not null,
 	email varchar(100) unique,
 	ciudad varchar (50),
+	region varchar (50),
 	fecha_registro date not null,
 	constraint pk_cliente primary key (id_cliente)
 	);
@@ -54,6 +59,7 @@ DROP TABLE IF EXISTS categorias;
 	constraint fk_ventas_producto foreign key (id_producto) references productos (id_producto)
 
 	);
+	GO
 
 	---------- Seccion 3 - INSERT DATA ----------
 
@@ -63,12 +69,13 @@ DROP TABLE IF EXISTS categorias;
   (3, 'Audio',          'Auriculares y parlantes'),
   (4, 'Almacenamiento', 'Discos y memorias');
 
-  INSERT INTO clientes (id_cliente, nombre, email, ciudad, fecha_registro) VALUES
-  (1, 'María López',  'maria@mail.com',  'Buenos Aires', '2024-01-05'),
-  (2, 'Carlos Ruiz',  'carlos@mail.com', 'Córdoba',      '2024-01-10'),
-  (3, 'Ana Gómez',    'ana@mail.com',    'Rosario',      '2024-02-01'),
-  (4, 'Pedro Sanz',   'pedro@mail.com',  'Mendoza',      '2024-02-15'),
-  (5, 'Laura Torres', 'laura@mail.com',  'Tucumán',      '2024-03-01');
+  INSERT INTO clientes (id_cliente, nombre, email, ciudad, region, fecha_registro) VALUES
+  (1, 'María López',  'maria@mail.com',  'Buenos Aires', 'AMBA', '2024-01-05'),
+  (2, 'Carlos Ruiz',  'carlos@mail.com', 'Córdoba', 'Centro' , '2024-01-10'),
+  (3, 'Ana Gómez',    'ana@mail.com',    'Rosario', 'Litoral' , '2024-02-01'),
+  (4, 'Pedro Sanz',   'pedro@mail.com',  'Mendoza',  'Cuyo' , '2024-02-15'),
+  (5, 'Laura Torres', 'laura@mail.com',  'Tucumán','NOA' , '2024-03-01'),
+  (6, 'Joaquin Puntillo', 'joaquin@mail.com' ,'Buenos Aires', 'AMBA', '2024-02-01');
 
   INSERT INTO productos (id_producto, nombre_producto, id_categoria, precio, stock, activo) VALUES
   (1, 'Laptop Pro 15',      1, 1200.00, 15, 1),
@@ -76,7 +83,8 @@ DROP TABLE IF EXISTS categorias;
   (3, 'Monitor 4K 27',      1,  450.00, 12, 1),
   (4, 'Auriculares BT Pro', 3,  120.00, 35, 1),
   (5, 'SSD Externo 1TB',    4,  130.00, 18, 1),
-  (6, 'Teclado Mecánico',   2,   95.00, 40, 1);
+  (6, 'Teclado Mecánico',   2,   95.00, 40, 1),
+  (7, 'Play Station', 1, 2000.00, 45, 1);
 
   INSERT INTO ventas (id_venta, id_cliente, id_producto, cantidad, precio_unitario, fecha_venta) VALUES
   ( 1, 1, 1, 2, 1200.00, '2024-03-05'),
